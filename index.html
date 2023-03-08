@@ -19,12 +19,16 @@
             }
         }
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.js"
-        integrity="sha512-hAz8pxm1kva4chZWPXQhGehvvlIj1Loka653sQXoYHNj4sgSukoR3ZKyHEOT7kFGVW17wUqD9CbKeviIJ2XFKQ=="
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+        integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.js"
+        integrity="sha512-hAz8pxm1kva4chZWPXQhGehvvlIj1Loka653sQXoYHNj4sgSukoR3ZKyHEOT7kFGVW17wUqD9CbKeviIJ2XFKQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script src="/app.js" defer></script>
     <style>
-        #spinner {
+        #spinner,
+        #qrcodeContainer {
             display: none
         }
     </style>
@@ -33,11 +37,7 @@
 </head>
 
 <body>
-    <!-- <header class="bg-[#105CFD] p-4 mb-10">
-        <div class="max-w-5xl m-auto">
-            <div class="text-xl font-bold text-white">QR Code Generator</div>
-        </div>
-    </header> -->
+
     <main class="h-full px-5 flex flex-col pt-20 justify-center">
         <div class="flex flex-col-reverse align-center w-full justify-center m-auto md:max-w-4xl md:flex-row">
             <div class="w-full md:w-2/3 mr-24">
@@ -53,11 +53,8 @@
                         name="" id="size">
                         <option value="100">100x100</option>
                         <option value="200">200x200</option>
-                        <option value="300" selected>300x300</option>
-                        <option value="400">400x400</option>
-                        <option value="500">500x500</option>
-                        <option value="600">600x600</option>
-                        <option value="700">700x700</option>
+                        <option value="240" selected>240x240</option>
+
                     </select>
                     <button type="submit" class="bg-[#105CFD] rounded w-full text-white py-3 px-4 mt-5 hover:bg-black">
                         Genetate QR Code
@@ -84,10 +81,13 @@
                 </div>
 
                 <!-- qr code -->
-                <div id="qrcode">
+                <div id="qrcodeContainer" class=" mb-10 w-60 h-60 md:w-full flex items-center justify-center">
+                    <div id="qrcode">
 
+                    </div>
                 </div>
             </div>
+
 
         </div>
 
