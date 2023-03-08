@@ -1,6 +1,12 @@
 const form = document.getElementById('generate-form');
 const qr = document.getElementById('qrcode');
 
+document.getElementById('button').addEventListener('click', () => {
+    console.log('before', qr.innerHTML);
+    celarUI()
+    document.getElementById('button').disabled = true;
+})
+
 const onGenerateSubmit = (e) => {
     e.preventDefault()
     celarUI()
@@ -32,6 +38,7 @@ const generateQRCode = (url, size) => {
         width: size,
         height: size,
     })
+    document.getElementById('button').disabled = false;
 
 }
 
@@ -48,7 +55,10 @@ const hideSpinner = () => {
 
 const celarUI = () => {
     qr.innerHTML = ''
+    console.log('after', qr.innerHTML);
 }
 
 hideSpinner();
+qr.innerHTML = ''
+
 form.addEventListener('submit', onGenerateSubmit);
