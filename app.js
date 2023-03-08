@@ -1,29 +1,28 @@
 const form = document.getElementById('generate-form');
 const qr = document.getElementById('qrcode');
+const url = document.getElementById('url');
+const submitBtn = document.getElementById('button');
+const overlay = document.getElementById('overlay');
 
 
 // Button Events
 
-// document.getElementById('button').addEventListener('click', () => {
-//     celarUI()
-//     document.getElementById('button').disabled = true;
-// })
 
 const onGenerateSubmit = (e) => {
     e.preventDefault()
     celarUI()
-    const url = document.getElementById('url').value;
-    document.getElementById('button').disabled = true;
 
+    submitBtn.disabled = true
+    const urlValue = url.value;
 
-    if (url === '') {
-        document.getElementById('overlay').style.display = 'grid';
+    if (urlValue === '') {
+        overlay.style.display = 'grid';
     } else {
 
         showSpinner()
         setTimeout(() => {
             hideSpinner()
-            generateQRCode(url, 240);
+            generateQRCode(urlValue, 240);
             setTimeout(() => {
                 const saveUrl = qr.querySelector('img').src;
                 createSaveButton(saveUrl)
@@ -44,17 +43,16 @@ const createSaveButton = (saveUrl) => {
 
 // QR Code
 
-const generateQRCode = (url, size) => {
+const generateQRCode = (urlValue, size) => {
     document.getElementById('image').style.display = 'none';
     document.getElementById('qrcodeContainer').style.display = 'flex';
 
     const qrcode = new QRCode('qrcode', {
-        text: url,
+        text: urlValue,
         width: size,
         height: size,
     })
-    document.getElementById('button').disabled = false;
-
+    submitBtn.disabled = false;
 }
 
 // UI functionality
@@ -87,10 +85,8 @@ const celarUI = () => {
 // close alert 
 
 document.getElementById('close-btn').addEventListener('click', () => {
-    document.getElementById('overlay').style.display = 'none';
-    document.getElementById('button').disabled = false;
-
-
+    overlay.style.display = 'none';
+    submitBtn.disabled = false
 })
 
 hideSpinner();
