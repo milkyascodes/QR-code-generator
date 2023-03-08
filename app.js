@@ -1,8 +1,10 @@
 const form = document.getElementById('generate-form');
 const qr = document.getElementById('qrcode');
 
+
+// Button Events
+
 document.getElementById('button').addEventListener('click', () => {
-    console.log('before', qr.innerHTML);
     celarUI()
     document.getElementById('button').disabled = true;
 })
@@ -11,10 +13,7 @@ const onGenerateSubmit = (e) => {
     e.preventDefault()
     celarUI()
     const url = document.getElementById('url').value;
-    const size = document.getElementById('size').value;
 
-    console.log('url', url);
-    console.log('size', size);
 
     if (url === '') {
         alert('Please enter a url')
@@ -22,16 +21,30 @@ const onGenerateSubmit = (e) => {
         showSpinner()
         setTimeout(() => {
             hideSpinner()
-            generateQRCode(url, size)
+            generateQRCode(url, 240);
+            setTimeout(() => {
+                const saveUrl = qr.querySelector('img').src;
+                createSaveButton(saveUrl)
+            }, 50);
         }, 1000);
     }
 }
 
+const createSaveButton = (saveUrl) => {
+    const link = document.createElement('a');
+    link.id = 'save-link';
+    link.classList = 'bg-red-500 hover:bg-red-700 text-white text-center font-bold py-2 rounded w-full m-auto my-5'
+    link.href = saveUrl;
+    link.download = 'qrcode';
+    link.innerHTML = 'Download Image'
+    document.getElementById('qrcodeContainer').appendChild(link);
+}
+
+// QR Code
 
 const generateQRCode = (url, size) => {
     document.getElementById('image').style.display = 'none';
     document.getElementById('qrcodeContainer').style.display = 'flex';
-
 
     const qrcode = new QRCode('qrcode', {
         text: url,
@@ -41,6 +54,8 @@ const generateQRCode = (url, size) => {
     document.getElementById('button').disabled = false;
 
 }
+
+// UI functionality
 
 const showSpinner = () => {
     document.getElementById('spinner').style.display = 'grid';
@@ -55,7 +70,11 @@ const hideSpinner = () => {
 
 const celarUI = () => {
     qr.innerHTML = ''
-    console.log('after', qr.innerHTML);
+    const saveLink = document.getElementById('save-link');
+    if (saveLink) {
+        saveLink.remove()
+    }
+
 }
 
 hideSpinner();
