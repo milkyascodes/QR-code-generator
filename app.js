@@ -4,20 +4,22 @@ const qr = document.getElementById('qrcode');
 
 // Button Events
 
-document.getElementById('button').addEventListener('click', () => {
-    celarUI()
-    document.getElementById('button').disabled = true;
-})
+// document.getElementById('button').addEventListener('click', () => {
+//     celarUI()
+//     document.getElementById('button').disabled = true;
+// })
 
 const onGenerateSubmit = (e) => {
     e.preventDefault()
     celarUI()
     const url = document.getElementById('url').value;
+    document.getElementById('button').disabled = true;
 
 
     if (url === '') {
-        alert('Please enter a url')
+        document.getElementById('overlay').style.display = 'grid';
     } else {
+
         showSpinner()
         setTimeout(() => {
             hideSpinner()
@@ -70,14 +72,27 @@ const hideSpinner = () => {
 
 const celarUI = () => {
     qr.innerHTML = ''
+    document.getElementById('image').style.display = 'block';
+    document.getElementById('qrcodeContainer').style.display = 'none';
+
+
     const saveLink = document.getElementById('save-link');
     if (saveLink) {
         saveLink.remove()
     }
 
+
+
 }
+// close alert 
+
+document.getElementById('close-btn').addEventListener('click', () => {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('button').disabled = false;
+
+
+})
 
 hideSpinner();
 qr.innerHTML = ''
-
 form.addEventListener('submit', onGenerateSubmit);
